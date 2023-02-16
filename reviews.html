@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Localminer Reviews</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+</head>
+
+<body>
+    <div id="reviews"></div>
+    <script>
+        // Render Comments
+        fetch(
+                'https://script.google.com/macros/s/AKfycby0kZHfWJyj7ilCHJvCOhOWB1xSYYfd72lk0mNgFDC09pNeCevlG2OrdGvip7RqYUAn/exec')
+            .then(response => {
+                if (!response.ok) {
+                    throw Error("ERROR");
+                }
+                return response.json();
+            })
+            .then(datas => {
+                    
+                    const html = datas.map((img, i) => {
+                        return `
+                        <div style="display:flex">
+                        <img src="${datas[i].userimg}" style="border-radius:50%">
+                        <div style="margin-left:1em">
+                        <h3>${datas[i].userid}</h3>
+                        <p>${datas[i].rating}</p>
+                        <p><i>${datas[i].review}</i></p>
+                        </div>
+                        </div>
+                        <hr><br>
+                        `;
+                    }).join('');
+                    document.querySelector("#reviews").insertAdjacentHTML("afterbegin", html);})
+    </script>
+</body>
+
+</html>
